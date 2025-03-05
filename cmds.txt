@@ -36,6 +36,7 @@ docker-compose up -d
 
 
 printf <your token> | docker login ghcr.io -u KatzirGal --password-stdin
+echo "<My Token>" | docker login ghcr.io -u KatzirGal --password-stdin
 docker tag similar-strings-runtime ghcr.io/katzirgal/similar-strings-runtime
 docker push ghcr.io/katzirgal/similar-strings-runtime:latest
 

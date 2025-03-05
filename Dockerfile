@@ -17,35 +17,35 @@
     # --- Stage 1: Build Poco Separately ---
     FROM base AS poco-builder
 
-    WORKDIR /GutsyDependencies
-    COPY GutsyDependencies /GutsyDependencies
+    WORKDIR /Dependencies
+    COPY Dependencies /Dependencies
 
     # Debugging step to ensure the files are copied
-    RUN ls -la /GutsyDependencies
+    RUN ls -la /Dependencies
 
     # Remove any previous cache files before building
     RUN rm -rf CMAKE_BUILD && mkdir CMAKE_BUILD
 
-    # Run cmake from /GutsyDependencies
+    # Run cmake from /Dependencies
     RUN cmake -B CMAKE_BUILD -DCMAKE_BUILD_TYPE=Release -S . 
     RUN cmake --build CMAKE_BUILD --config Release --target Poco
 
-    # --- Stage 2: Build Gutsy Using Prebuilt Poco ---
-    FROM base AS gutsy-builder
+    # --- Stage 2: Build SimilarStrings Using Prebuilt Poco ---
+    FROM base AS similar-strings-builder
 
     COPY . .
 
     RUN rm -rf CMAKE_BUILD && mkdir CMAKE_BUILD
 
-    COPY --from=poco-builder /GutsyDependencies/CMAKE_BUILD/install GutsyDependencies/CMAKE_BUILD/install
-    COPY --from=poco-builder /GutsyDependencies/CMAKE_BUILD/Poco GutsyDependencies/CMAKE_BUILD/Poco
+    COPY --from=poco-builder /Dependencies/CMAKE_BUILD/install Dependencies/CMAKE_BUILD/install
+    COPY --from=poco-builder /Dependencies/CMAKE_BUILD/Poco Dependencies/CMAKE_BUILD/Poco
 
-    ENV PocoFoundation_DIR=/GutsyDependencies/CMAKE_BUILD/install/Release/lib/cmake/Poco
-    ENV CMAKE_PREFIX_PATH=/GutsyDependencies/CMAKE_BUILD/install/Release/lib/cmake/Poco
+    ENV PocoFoundation_DIR=/Dependencies/CMAKE_BUILD/install/Release/lib/cmake/Poco
+    ENV CMAKE_PREFIX_PATH=/Dependencies/CMAKE_BUILD/install/Release/lib/cmake/Poco
 
-    RUN ls -lah /GutsyDependencies/CMAKE_BUILD/install/Release/lib/
+    RUN ls -lah /Dependencies/CMAKE_BUILD/install/Release/lib/
 
-    RUN cmake -B CMAKE_BUILD -DCMAKE_BUILD_TYPE=Release -DPoco_DIR=/GutsyDependencies/CMAKE_BUILD/install/Release/lib/cmake/Poco
+    RUN cmake -B CMAKE_BUILD -DCMAKE_BUILD_TYPE=Release -DPoco_DIR=/Dependencies/CMAKE_BUILD/install/Release/lib/cmake/Poco
 
     RUN cmake --build CMAKE_BUILD --config Release
 
@@ -63,13 +63,13 @@
         && rm -rf /var/lib/apt/lists/*  # Clean up
 
     WORKDIR /app
-    COPY --from=gutsy-builder build /app
-    COPY --from=poco-builder /GutsyDependencies/CMAKE_BUILD/install/Release/lib /usr/local/lib
+    COPY --from=similar-strings-builder build /app
+    COPY --from=poco-builder /Dependencies/CMAKE_BUILD/install/Release/lib /usr/local/lib
     COPY words_clean.txt words_clean.txt
 
     RUN ldconfig
 
     EXPOSE 8000
 
-    CMD ["/app/Gutsy", "/app/words_clean.txt"]
+    CMD ["/app/SimilarStrings", "/app/words_clean.txt"]
 
