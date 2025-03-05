@@ -63,9 +63,9 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_PREFIX_PATH={matrix.poco_cmake_dir} 
-        -DPoco_DIR={matrix.poco_cmake_dir} 
-        -DPocoFoundation_DIR={matrix.poco_cmake_dir}
+        -DCMAKE_PREFIX_PATH=${{ matrix.poco_cmake_dir }}
+        -DPoco_DIR=${{ matrix.poco_cmake_dir }}
+        -DPocoFoundation_DIR=${{ matrix.poco_cmake_dir }}
         -S ${{ github.workspace }}
 
     - name: Build
