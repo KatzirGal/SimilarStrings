@@ -56,7 +56,7 @@ jobs:
     - name: Build Poco
       run: |
         cmake -B ${{ steps.strings.outputs.poco-build-dir }} -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -S ${{ github.workspace }}/Dependencies
-        cmake --build ${{ steps.strings.outputs.poco-build-dir }} --config ${{ matrix.build_type }} --target install
+        cmake --build ${{ steps.strings.outputs.poco-build-dir }} --config ${{ matrix.build_type }} --target Poco
 
     # Verify Poco built successfully
     - name: Verify Poco Installation
