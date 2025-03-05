@@ -67,8 +67,13 @@ jobs:
     - name: Verify Poco Installation
       run: |
         echo "Checking Poco installation..."
-        ls -l ${{ steps.strings.outputs.poco-install-dir }} || echo "Poco not found!"
-        find ${{ steps.strings.outputs.poco-install-dir }} -name "PocoConfig.cmake" || echo "PocoConfig.cmake missing!"
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          ls -l ${{ steps.strings.outputs.poco-install-dir }} || echo "Poco not found!"
+          find ${{ steps.strings.outputs.poco-install-dir }} -name "PocoConfig.cmake" || echo "PocoConfig.cmake missing!"
+        else
+          dir "${{ steps.strings.outputs.poco-install-dir }}" || echo "Poco not found!"
+          gci -Path "${{ steps.strings.outputs.poco-install-dir }}" -Recurse -Filter "PocoConfig.cmake" || echo "PocoConfig.cmake missing!"
+        fi
 
     - name: Configure CMake
       run: >
