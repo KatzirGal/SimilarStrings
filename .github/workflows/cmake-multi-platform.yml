@@ -26,7 +26,6 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         build_type: [Release]
         c_compiler: [gcc, clang, cl]
-        poco_cmake_dir: ['Dependencies/CMAKE_BUILD/install/${{ matrix.build_type }}/lib/cmake/Poco']
         include:
           - os: windows-latest
             c_compiler: cl
@@ -54,6 +53,7 @@ jobs:
       shell: bash
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        echo "poco-cmake-dir=${{ github.workspace }}/Dependencies/CMAKE_BUILD/install/${{ matrix.build_type }}/lib/cmake/Poco" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
