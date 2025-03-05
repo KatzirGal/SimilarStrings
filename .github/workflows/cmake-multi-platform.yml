@@ -65,6 +65,7 @@ jobs:
 
     # Verify Poco built successfully
     - name: Verify Poco Installation
+      shell: bash
       run: |
         echo "Checking Poco installation..."
         if [[ "$RUNNER_OS" == "Linux" ]]; then
