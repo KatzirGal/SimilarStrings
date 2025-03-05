@@ -1,0 +1,51 @@
+
+docker run --interactive --tty --rm ubuntu:22.04
+docker run -it --name my-ubuntu-container ubuntu:22.04
+docker run --rm -it my-ubuntu-container bash
+docker start my-ubuntu-container
+docker attach my-ubuntu-container
+
+docker build -t gutsy-runtime .
+docker run --rm -it gutsy-runtime bash
+docker run -p 8000:8000 --rm -it gutsy-runtime bash
+docker run -p 8000:8000 --rm gutsy-runtime
+
+docker build --target poco-builder -t temp-poco-builder .
+docker run --rm -it temp-poco-builder bash
+
+docker build --target gutsy-builder -t temp-gutsy-builder .
+docker run --rm -it temp-gutsy-builder bash
+
+docker build --tag my-ubuntu-image -<<EOF
+FROM ubuntu:22.04
+RUN apt update && apt install iputils-ping --yes
+EOF
+
+'-it' is the same as '--interactive --tty'
+docker run -it --rm my-ubuntu-image
+
+docker volume create my-volume
+docker run -it --rm --mount source=my-volume,destination=/my-data/ ubuntu:22.04
+docker run -it --rm --mount type=bind,source="${PWD}"/my-data,destination=/my-data/ ubuntu:22.04
+
+docker image ls
+
+
+docker-compose up
+docker-compose up -d
+
+
+printf <your token> | docker login ghcr.io -u KatzirGal --password-stdin
+docker tag gutsy-runtime ghcr.io/katzirgal/gutsy-runtime
+docker push ghcr.io/katzirgal/gutsy-runtime:latest
+
+
+
+
+Homework
+
+Build Dockerfile -> Done
+Build yml file -> Done
+Integration with github
+Development workflow - Intant update on changes, debug, tests, CI -- MAKE SURE TO DO EVERTHING HERE!!!
+

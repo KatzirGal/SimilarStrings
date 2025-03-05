@@ -1,0 +1,12 @@
+.vs
+.git
+x64
+.gitignore
+build.py
+cmds.txt
+docker.bat
+Gutst.sln
+README.md
+sizeOfWordsDistribution.txt
+sizeOfWordsGraph.png
+*.code-workspace
