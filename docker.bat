@@ -1,2 +1,2 @@
-docker build -t gutsy-runtime .
-docker run --rm gutsy-runtime
+docker build -t similar-strings-runtime .
+docker run --rm similar-strings-runtime
