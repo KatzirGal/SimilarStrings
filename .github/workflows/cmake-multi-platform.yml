@@ -50,7 +50,11 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
         echo "poco-build-dir=${{ github.workspace }}/Dependencies/CMAKE_BUILD" >> "$GITHUB_OUTPUT"
-        echo "poco-install-dir=${{ github.workspace }}/Dependencies/CMAKE_BUILD/install/${{ matrix.build_type }}/lib/cmake/Poco" >> "$GITHUB_OUTPUT"
+        if [[ "$RUNNER_OS" == "Linux" ]]; then
+          echo "poco-install-dir=${{ github.workspace }}/Dependencies/CMAKE_BUILD/install/${{ matrix.build_type }}/lib/cmake/Poco" >> "$GITHUB_OUTPUT"
+        else
+          echo "poco-install-dir=${{ github.workspace }}/Dependencies/CMAKE_BUILD/install/${{ matrix.build_type }}/cmake" >> "$GITHUB_OUTPUT"
+        fi
 
     # Step to build Poco first before configuring the main project
     - name: Build Poco
