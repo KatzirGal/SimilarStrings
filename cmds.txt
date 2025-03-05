@@ -5,16 +5,16 @@ docker run --rm -it my-ubuntu-container bash
 docker start my-ubuntu-container
 docker attach my-ubuntu-container
 
-docker build -t gutsy-runtime .
-docker run --rm -it gutsy-runtime bash
-docker run -p 8000:8000 --rm -it gutsy-runtime bash
-docker run -p 8000:8000 --rm gutsy-runtime
+docker build -t similar-strings-runtime .
+docker run --rm -it similar-strings-runtime bash
+docker run -p 8000:8000 --rm -it similar-strings-runtime bash
+docker run -p 8000:8000 --rm similar-strings-runtime
 
 docker build --target poco-builder -t temp-poco-builder .
 docker run --rm -it temp-poco-builder bash
 
-docker build --target gutsy-builder -t temp-gutsy-builder .
-docker run --rm -it temp-gutsy-builder bash
+docker build --target similar-strings-builder -t temp-similar-strings-builder .
+docker run --rm -it temp-similar-strings-builder bash
 
 docker build --tag my-ubuntu-image -<<EOF
 FROM ubuntu:22.04
@@ -36,8 +36,8 @@ docker-compose up -d
 
 
 printf <your token> | docker login ghcr.io -u KatzirGal --password-stdin
-docker tag gutsy-runtime ghcr.io/katzirgal/gutsy-runtime
-docker push ghcr.io/katzirgal/gutsy-runtime:latest
+docker tag similar-strings-runtime ghcr.io/katzirgal/similar-strings-runtime
+docker push ghcr.io/katzirgal/similar-strings-runtime:latest
 
 
 
