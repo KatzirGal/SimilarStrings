@@ -51,14 +51,7 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y libssl-dev libpoco-dev
-
-    - name: Install Poco (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        vcpkg install poco
-        echo "CMAKE_PREFIX_PATH=${VCPKG_ROOT}/installed/x64-windows/share/poco" >> $GITHUB_ENV
-
+        sudo apt-get install -y libssl-dev
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
@@ -76,9 +69,9 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_PREFIX_PATH=${{ github.workspace }}/${{ matrix.poco_cmake_dir }}
-        -DPoco_DIR=${{ github.workspace }}/${{ matrix.poco_cmake_dir }}
-        -DPocoFoundation_DIR=${{ github.workspace }}/${{ matrix.poco_cmake_dir }}
+        -DCMAKE_PREFIX_PATH=${{ steps.strings.outputs.poco-cmake-dir }}
+        -DPoco_DIR=${{ steps.strings.outputs.poco-cmake-dir }}
+        -DPocoFoundation_DIR=${{ steps.strings.outputs.poco-cmake-dir }}
         -S ${{ github.workspace }}
 
     - name: Build
