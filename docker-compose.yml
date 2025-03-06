@@ -1,11 +1,11 @@
 services:
-  gutsy:
+  similar-strings:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: gutsy_app
+    container_name: similar_strings_app
     ports:
       - "8000:8000"
     volumes:
       - ./words_clean.txt:/app/words_clean.txt
-    command: ["/app/Gutsy", "/app/words_clean.txt"]
+    command: ["/app/SimilarStrings", "/app/words_clean.txt"]

@@ -6,6 +6,9 @@ docker start my-ubuntu-container
 docker attach my-ubuntu-container
 
 docker build -t similar-strings-runtime .
+docker build --build-arg BUILD_TYPE=Debug -t similar-strings:debug .
+docker build --build-arg BUILD_TYPE=Release -t similar-strings:release .
+
 docker run --rm -it similar-strings-runtime bash
 docker run -p 8000:8000 --rm -it similar-strings-runtime bash
 docker run -p 8000:8000 --rm similar-strings-runtime
@@ -47,6 +50,6 @@ Homework
 
 Build Dockerfile -> Done
 Build yml file -> Done
-Integration with github
+Integration with github -> Done
 Development workflow - Intant update on changes, debug, tests, CI -- MAKE SURE TO DO EVERTHING HERE!!!
 

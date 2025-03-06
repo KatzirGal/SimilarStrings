@@ -5,8 +5,8 @@ x64
 build.py
 cmds.txt
 docker.bat
-Gutst.sln
+*.sln
 README.md
 sizeOfWordsDistribution.txt
-sizeOfWordsGraph.png
+*.png
 *.code-workspace
