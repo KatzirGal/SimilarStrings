@@ -1,0 +1,15 @@
+services:
+  similar-strings:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PRODUCTION: "OFF"
+        BUILD_TYPE: "Debug"
+    container_name: similar_strings_debug
+    ports:
+      - "8000:8000"
+      - "1234:1234"
+    volumes:
+      - .:/app
+    command: ["/app/SimilarStrings", "/app/words_clean.txt"]

@@ -49,7 +49,7 @@ int MyWebServiceApp::PrepareCommandsHandler(const Poco::Util::AbstractConfigurat
     if (argc < 1)
     {
         std::cerr << "Error: not enough parameters\n";
-        std::cout << "Gutsy.exe '<Path to the dictionary>'" << std::endl;
+        std::cout << "SimilarStrings.exe '<Path to the dictionary>'" << std::endl;
         return 1;
     }
 

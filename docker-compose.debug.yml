@@ -1,0 +1,13 @@
+services:
+  similar-strings:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PRODUCTION: "OFF"
+        BUILD_TYPE: "Debug"
+    image: similar-strings-debug
+    container_name: similar_strings_debug
+    ports:
+      - "8000:8000"
+      - "1234:1234"

@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Docker Remote Debug",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "/app/SimilarStrings",
+            "MIMode": "gdb",
+            "useExtendedRemote": true,
+            "miDebuggerServerAddress": "127.0.0.1:1234",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "pipeTransport": {
+                "pipeProgram": "powershell",
+                "pipeArgs": ["-File", "C:/Users/Gal/source/repos/SimilarStrings/docker_exec.ps1", "similar_strings_debug"],
+                "debuggerPath": "/usr/bin/gdb"
+            },
+            "setupCommands": [
+                { "text": "-enable-pretty-printing", "description": "Enable GDB pretty printing", "ignoreFailures": true }
+            ],
+            "targetArchitecture": "x86_64"
+        }
+    ]
+}

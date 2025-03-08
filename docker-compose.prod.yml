@@ -3,9 +3,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        PRODUCTION: "ON"
+        BUILD_TYPE: "Release"
     container_name: similar_strings_app
     ports:
       - "8000:8000"
-    volumes:
-      - ./words_clean.txt:/app/words_clean.txt
-    command: ["/app/SimilarStrings", "/app/words_clean.txt"]
