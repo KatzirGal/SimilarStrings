@@ -18,6 +18,9 @@
             "setupCommands": [
                 { "text": "-enable-pretty-printing", "description": "Enable GDB pretty printing", "ignoreFailures": true }
             ],
+            "sourceFileMap": {
+                "/app": "${workspaceFolder}"
+            },
             "targetArchitecture": "x86_64"
         }
     ]

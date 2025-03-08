@@ -67,7 +67,7 @@ RUN ls -lah /Dependencies/CMAKE_BUILD/install/${BUILD_TYPE}/lib/
 
 # Adjust compilation flags for debugging if needed
 RUN if [ "$PRODUCTION" = "OFF" ]; then \
-        cmake -B CMAKE_BUILD -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_CXX_FLAGS="-g -O2" -DPoco_DIR=/Dependencies/CMAKE_BUILD/install/${BUILD_TYPE}/lib/cmake/Poco; \
+        cmake -B CMAKE_BUILD -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_CXX_FLAGS="-g -O2 -no-pie" -DPoco_DIR=/Dependencies/CMAKE_BUILD/install/${BUILD_TYPE}/lib/cmake/Poco; \
     else \
         cmake -B CMAKE_BUILD -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DPoco_DIR=/Dependencies/CMAKE_BUILD/install/${BUILD_TYPE}/lib/cmake/Poco; \
     fi
@@ -104,7 +104,7 @@ WORKDIR /app
 COPY --from=similar-strings-builder build /app
 COPY --from=poco-builder /Dependencies/CMAKE_BUILD/install/${BUILD_TYPE}/lib /usr/local/lib
 COPY words_clean.txt words_clean.txt
-COPY docker_exec.ps1 docker_exec.ps1
+COPY /src /src
 
 RUN ldconfig
 

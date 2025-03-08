@@ -1,7 +1,13 @@
 param (
-    [string]$ContainerName
+    [string]$ContainerName,
+    [string]$Command
 )
 
-docker exec -i $ContainerName sh -c 'uname && if [ $(uname -o) = "Toybox" ]; then ps -A -o pid,comm,args; elif [ $(uname) = "Linux" ]; then ps axww -o pid,comm,args; elif [ $(uname) = "Darwin" ]; then ps axww -o pid,comm,args -c; fi'
+# Construct the correct Docker execution command
+$cmd = "docker exec -i $ContainerName sh -c ""$Command"""
 
-exit 0
+# Run the command in PowerShell and capture exit code
+$process = Start-Process -NoNewWindow -FilePath "cmd.exe" -ArgumentList "/c $cmd" -PassThru -Wait
+
+# Return success (0) if the command executed properly, otherwise return failure (1)
+exit $process.ExitCode
