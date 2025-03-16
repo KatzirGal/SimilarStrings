@@ -18,7 +18,7 @@ def run_command(command, cwd=None):
         sys.exit(1)
 
 def main():
-    parser = argparse.ArgumentParser(description="Build Gutsy using CMake.")
+    parser = argparse.ArgumentParser(description="Build SimilarStrings using CMake.")
     parser.add_argument("--config", choices=["Release", "Debug", "RelWithDebInfo"], default="Release", help="Build configuration (default: Release)")
     args = parser.parse_args()
 
